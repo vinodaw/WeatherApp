@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".WeatherDetails">
+
+    <TextView
+        android:id="@+id/temp1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="sans-serif-thin"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="@string/tempVal"
+        android:textAlignment="textStart"
+        android:textColor="@android:color/white"
+        android:textSize="36sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/minmax"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="@string/minmax"
+        android:textColor="@android:color/white"
+        android:textSize="26sp"
+        android:textStyle="normal" />
+</LinearLayout>

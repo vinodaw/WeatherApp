@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">WeatherApp</string>
+    <string name="action_settings">Settings</string>
+    <string name="tempVal">34.5°</string>
+    <string name="minmax">Sunny 38 / 24°C</string>
+    <string name="go">Go</string>
+    <string name="cityhint">Input the city name</string>
+</resources>
