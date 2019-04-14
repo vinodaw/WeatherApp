@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "onClick: "+city.getText());
 
                 WeatherAPI weatherAPI = retrofit.create(WeatherAPI.class);
-                Call<WeatherResponse> weatherResponseCall = weatherAPI.getWeatherByCity("bangkok","e4bea137dbcbb5e6d7214796e2e23585","metric");
+                Call<WeatherResponse> weatherResponseCall = weatherAPI.getWeatherByCity(city.getText().toString(),"e4bea137dbcbb5e6d7214796e2e23585","metric");
 
                 weatherResponseCall.enqueue(new Callback<WeatherResponse>() {
                     @Override
@@ -59,6 +59,10 @@ public class MainActivity extends AppCompatActivity {
                             Log.d(TAG, "onResponse: max: "+weatherResponse.main.tempMax);
 
                             Intent intent = new Intent(MainActivity.this,WeatherDetails.class);
+                            intent.putExtra("temp",String.valueOf(weatherResponse.main.temp));
+                            intent.putExtra("min",String.valueOf(weatherResponse.main.tempMin));
+                            intent.putExtra("max",String.valueOf(weatherResponse.main.tempMax));
+
                             startActivity(intent);
 
                         }
