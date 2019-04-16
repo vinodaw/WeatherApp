@@ -2,8 +2,6 @@ package com.vinod.samples.weatherapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -12,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.vinod.samples.weatherapp.response.WeatherResponse;
 
@@ -26,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnGo;
     private EditText city;
     private Retrofit retrofit;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnGo = findViewById(R.id.btnGo);
         city = findViewById(R.id.txtCity);
+        progressBar = findViewById(R.id.indeterminateBar);
 
         retrofit = new Retrofit.Builder().baseUrl("https://api.openweathermap.org/")
                     .addConverterFactory(GsonConverterFactory.create()).build();
@@ -44,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: "+city.getText());
-
+                progressBar.setVisibility(ProgressBar.VISIBLE);
+                Log.d(TAG, "progress is visible: "+progressBar.getVisibility());
                 WeatherAPI weatherAPI = retrofit.create(WeatherAPI.class);
                 Call<WeatherResponse> weatherResponseCall = weatherAPI.getWeatherByCity(city.getText().toString(),"e4bea137dbcbb5e6d7214796e2e23585","metric");
 
@@ -63,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
                             intent.putExtra("min",String.valueOf(weatherResponse.main.tempMin));
                             intent.putExtra("max",String.valueOf(weatherResponse.main.tempMax));
 
+                            progressBar.setVisibility(ProgressBar.GONE);
+
                             startActivity(intent);
 
                         }
@@ -71,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<WeatherResponse> call, Throwable t) {
                         Log.d(TAG, "onFailure: Weather API call failed "+t.getMessage());
-
+                        progressBar.setVisibility(ProgressBar.GONE);
                     }
                 });
 
@@ -79,14 +83,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+      /*  FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
     }
 
     @Override

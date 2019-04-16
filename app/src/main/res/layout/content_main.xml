@@ -4,28 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <EditText
-        android:id="@+id/txtCity"
-        android:layout_width="238dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:hint="@string/cityhint"
-        android:inputType="textPersonName" />
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/btnGo"
-        android:layout_width="113dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="10dp"
-        android:text="@string/go" />
+        <EditText
+            android:id="@+id/txtCity"
+            android:layout_width="238dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
+            android:hint="@string/cityhint"
+            android:inputType="textPersonName" />
+
+        <Button
+            android:id="@+id/btnGo"
+            android:layout_width="113dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="10dp"
+            android:text="@string/go" />
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/indeterminateBar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:keepScreenOn="false"
+        android:visibility="invisible" />
+
+
 </LinearLayout>
