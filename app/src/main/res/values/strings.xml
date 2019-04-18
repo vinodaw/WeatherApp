@@ -5,4 +5,5 @@
     <string name="minmax">Sunny 38 / 24°C</string>
     <string name="go">Go</string>
     <string name="cityhint">Input the city name</string>
+    <string name="weathercond">Sunny</string>
 </resources>

@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -53,17 +51,20 @@ public class MainActivity extends AppCompatActivity {
                 weatherResponseCall.enqueue(new Callback<WeatherResponse>() {
                     @Override
                     public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
+                        Log.d(TAG, "onResponse: "+response.isSuccessful());
                         if(response.isSuccessful()){
                             WeatherResponse weatherResponse = response.body();
 
                             Log.d(TAG, "onResponse: temp: "+weatherResponse.main.temp);
                             Log.d(TAG, "onResponse: min: "+weatherResponse.main.tempMin);
                             Log.d(TAG, "onResponse: max: "+weatherResponse.main.tempMax);
+                            Log.d(TAG, "onResponse: weather: "+weatherResponse.getWeather().get(0).main);
 
                             Intent intent = new Intent(MainActivity.this,WeatherDetails.class);
                             intent.putExtra("temp",String.valueOf(weatherResponse.main.temp));
                             intent.putExtra("min",String.valueOf(weatherResponse.main.tempMin));
                             intent.putExtra("max",String.valueOf(weatherResponse.main.tempMax));
+                            intent.putExtra("weathercond",weatherResponse.getWeather().get(0).main);
 
                             progressBar.setVisibility(ProgressBar.GONE);
 
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         });*/
     }
 
-    @Override
+  /*  @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -113,5 +114,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    } */
 }

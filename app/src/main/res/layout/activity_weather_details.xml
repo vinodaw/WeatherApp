@@ -13,16 +13,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="200dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="sans-serif-thin"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:text="@string/tempVal"
-        android:textAlignment="textStart"
-        android:textColor="@android:color/white"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
         android:textSize="36sp"
         android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/weather"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="20dp"
+        android:text="@string/weathercond"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="26sp"
+        android:textStyle="normal" />
 
     <TextView
         android:id="@+id/minmax"
@@ -31,9 +46,11 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:paddingLeft="20dp"
+        android:paddingTop="10dp"
         android:paddingRight="20dp"
         android:text="@string/minmax"
-        android:textColor="@android:color/white"
-        android:textSize="26sp"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
         android:textStyle="normal" />
 </LinearLayout>
