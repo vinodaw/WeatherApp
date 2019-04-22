@@ -1,12 +1,25 @@
 package com.vinod.samples.weatherapp;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ShareActionProvider;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 
 public class WeatherDetails extends AppCompatActivity {
     private TextView temp1;
@@ -14,6 +27,7 @@ public class WeatherDetails extends AppCompatActivity {
     private TextView weathercond;
     private ShareActionProvider shareActionProvider;
     private StringBuilder shareContent = new StringBuilder("");
+    private static final String TAG = "WeatherDetails";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +48,64 @@ public class WeatherDetails extends AppCompatActivity {
         minmax.setText(tempminmax);
 
         shareContent.append(temp1.getText()).append(weathercond.getText()).append(minmax.getText());
+
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+
+    private void takeScreenshot(View view){
+
+        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(),
+                view.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+        //File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File imageFolder = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),"myimages");
+
+        Log.d(TAG, "takeScreenshot: ");
+
+        OutputStream out = null;
+        File imageFile = new File(imageFolder,"weatherscr.jpg");
+
+        Log.d(TAG, "takeScreenshot: "+imageFile.getAbsolutePath());
+        try {
+            imageFolder.mkdirs();
+            //new File(path).mkdir();
+            out = new FileOutputStream(imageFile);
+            // choose JPEG format
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+
+            out.flush();
+            Log.d(TAG, "takeScreenshot: successful");
+
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setType("image/jpeg");
+            shareIntent.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(this,"com.vinod.samples.weatherapp.fileprovider",imageFile));
+            startActivity(Intent.createChooser(shareIntent, "Share link using"));
+        } catch (FileNotFoundException e) {
+            // manage exception ...
+            Log.d(TAG, "takeScreenshot: FileNotFoundException"+e.getMessage());
+        } catch (IOException e) {
+            // manage exception ...
+            Log.d(TAG, "takeScreenshot: IOException "+e.getMessage());
+        } finally {
+
+            try {
+                if (out != null) {
+                    out.close();
+                }
+
+            } catch (Exception exc) {
+                Log.d(TAG, "takeScreenshot: Exception "+exc.getMessage());
+            }
+
+        }
     }
 
     @Override
@@ -67,10 +139,12 @@ public class WeatherDetails extends AppCompatActivity {
             case R.id.action_settings:
                   return true;
             case R.id.action_share:
-                Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                shareIntent.setType("text/*");
-                shareIntent.putExtra(Intent.EXTRA_TEXT, shareContent.toString());
-                startActivity(Intent.createChooser(shareIntent, "Share link using"));
+
+                ViewGroup rootView = (ViewGroup) ((ViewGroup) this
+                        .findViewById(android.R.id.content)).getChildAt(0);
+
+                takeScreenshot(rootView);
+
         }
 
         //noinspection SimplifiableIfStatement
