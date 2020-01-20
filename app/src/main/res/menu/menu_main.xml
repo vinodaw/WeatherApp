@@ -4,9 +4,10 @@
     tools:context="com.vinod.samples.weatherapp.MainActivity">
     <item
         android:id="@+id/action_share"
+        android:icon="@drawable/ic_share_black_24dp"
         android:orderInCategory="80"
         android:title="Share"
-        app:showAsAction="never"/>
+        app:showAsAction="always" />
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
